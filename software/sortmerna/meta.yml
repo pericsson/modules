@@ -1,0 +1,47 @@
+name: sortmerna
+## TODO nf-core: Add a description of the module and list keywords
+description: write your description here
+keywords:
+  - sort
+tools:
+  - sortmerna:
+      ## TODO nf-core: Add a description and other details for the software below
+      description: SortMeRNA is a biological sequence analysis tool for filtering, mapping and OTU-picking NGS reads.
+      homepage: None
+      documentation: None
+      tool_dev_url: None
+      doi: ""
+      licence: ['LGPL']
+
+## TODO nf-core: Add a description of all of the variables used as input
+input:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  ## TODO nf-core: Delete / customise this example input
+  - bam:
+      type: file
+      description: BAM/CRAM/SAM file
+      pattern: "*.{bam,cram,sam}"
+
+## TODO nf-core: Add a description of all of the variables used as output
+output:
+  - meta:
+      type: map
+      description: |
+        Groovy Map containing sample information
+        e.g. [ id:'test', single_end:false ]
+  - version:
+      type: file
+      description: File containing software version
+      pattern: "*.{version.txt}"
+  ## TODO nf-core: Delete / customise this example output
+  - bam:
+      type: file
+      description: Sorted BAM/CRAM/SAM file
+      pattern: "*.{bam,cram,sam}"
+
+authors:
+  - "@pericsson"
