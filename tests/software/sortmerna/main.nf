@@ -40,4 +40,4 @@ workflow test_sortmerna_single_end_one_ref {
 //               file("${launchDir}/tests/data/genomics/sarscov2/bam/test_paired_end.bam", checkIfExists: true) ]
 
 //     SORTMERNA ( input )
-}
+// }
