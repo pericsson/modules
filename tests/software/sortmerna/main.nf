@@ -8,9 +8,11 @@ workflow test_sortmerna_single_end_one_ref {
 
     def input = []
     input = [ [ id:'test', single_end:true ], // meta map
-              file("${launchDir}/tests/data/genomics/sarscov2/bam/test_paired_end.bam", checkIfExists: true) ]
+              file("${launchDir}/tests/data/genomics/sarscov2/illumina/fastq/test_1.fastq.gz", checkIfExists: true) ]
 
-    SORTMERNA ( input )
+    ref = [ file("${launchDir}/tests/data/genomics/sarscov2/genome/transcriptome.fasta", checkIfExists: true) ]
+
+    SORTMERNA ( input, ref )
 }
 
 // workflow test_sortmerna_paired_end {
