@@ -31,8 +31,9 @@ process SORTMERNA {
     def software = getSoftwareName(task.process)
     def prefix   = options.suffix ? "${meta.id}${options.suffix}" : "${meta.id}"
 
+    print reads
     def Refs = ""
-    for (i=0; i<fasta.size(); i++) { Refs+= " --ref ${fasta[i]}" }
+    for (i=0; i<fasta.toList().size(); i++) { Refs+= " --ref ${fasta[i]}" }
     if (meta.single_end) {
         """
         sortmerna \\
@@ -44,7 +45,8 @@ process SORTMERNA {
             --other non_rRNA_reads \\
             $options.args
 
-        gzip -f < non_rRNA_reads.fq > ${prefix}.fastq.gz
+        non_rRNA_reads=\$(ls non_rRNA_reads.*)
+        gzip -f < \$non_rRNA_reads > ${prefix}.fastq.gz
         mv rRNA_reads.log ${prefix}.sortmerna.log
 
         echo \$(sortmerna --version 2>&1) | sed 's/^.*SortMeRNA version //; s/ Build Date.*\$//' > ${software}.version.txt
@@ -63,8 +65,10 @@ process SORTMERNA {
             --out2 \\
             $options.args
 
-        gzip -f < non_rRNA_reads_fwd.fq > ${prefix}_1.fastq.gz
-        gzip -f < non_rRNA_reads_rev.fq > ${prefix}_2.fastq.gz
+        non_rRNA_reads_fwd=\$(ls non_rRNA_reads_fwd.*)
+        non_rRNA_reads_rev=\$(ls non_rRNA_reads_rev.*)
+        gzip -f < \$non_rRNA_reads_fwd > ${prefix}_1.fastq.gz
+        gzip -f < \$non_rRNA_reads_rev > ${prefix}_2.fastq.gz
         mv rRNA_reads.log ${prefix}.sortmerna.log
 
         echo \$(sortmerna --version 2>&1) | sed 's/^.*SortMeRNA version //; s/ Build Date.*\$//' > ${software}.version.txt
